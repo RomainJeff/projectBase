@@ -46,6 +46,15 @@ gulp.task('html', function () {
 });
 
 
+/** VERIFY JAVASCRIPT **/
+gulp.task('lintServices', function() {
+    return gulp.src(devPath +'/services/**/+(Controllers|Models)/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'));
+});
+
+
+
 /** RUN TESTS **/ 
 gulp.task('tests', ['compileServices'], function () {
     return gulp.src('tests/**/*.js')
@@ -55,15 +64,6 @@ gulp.task('tests', ['compileServices'], function () {
             vendor: [prodPath +'/scripts/**/*.js']
         }));
 });
-
-
-/** VERIFY JAVASCRIPT **/
-gulp.task('lintServices', function() {
-    return gulp.src(devPath +'/services/**/+(Controllers|Models)/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'));
-});
-
 
 
 /** TASK PROD **/
