@@ -1,5 +1,13 @@
 var prodPath = "app_prod";
 var devPath  = "app_dev";
+var uglifyConfig = {
+    mangle: false
+};
+var jasmineConfig = {
+    integration: true,
+    abortOnFail: true,
+    vendor: [prodPath +'/scripts/**/*.js']
+};
 
 var gulp        = require('gulp');
 var jshint      = require('gulp-jshint');
@@ -10,6 +18,7 @@ var jasmine     = require('gulp-jasmine-phantom');
 var serve       = require('gulp-serve');
 var useref      = require('gulp-useref');
 var compass     = require('gulp-for-compass');
+var uglify      = require('gulp-uglify');
 
  
 
@@ -30,6 +39,14 @@ gulp.task('compileVendors', function () {
         .pipe(sourcemaps.init())
         .pipe(concat("vendors.js"))
         .pipe(sourcemaps.write("."))
+        .pipe(gulp.dest(prodPath +'/scripts'));
+});
+
+
+/** UGLIFY VENDORS **/
+gulp.task('uglifyVendors', ['compileVendors'], function () {
+    return gulp.src(prodPath +'/scripts/vendors.js')
+        .pipe(uglify(uglifyConfig))
         .pipe(gulp.dest(prodPath +'/scripts'));
 });
 
@@ -80,16 +97,12 @@ gulp.task('lintServices', function() {
 /** RUN TESTS **/ 
 gulp.task('tests', ['compileServices'], function () {
     return gulp.src('tests/**/*.js')
-        .pipe(jasmine({
-            integration: true,
-            abortOnFail: true,
-            vendor: [prodPath +'/scripts/**/*.js']
-        }));
+        .pipe(jasmine(jasmineConfig));
 });
 
 
 /** TASK PROD **/
-gulp.task('prod', ['compileServices', 'compileVendors', 'compileFramework', 'html', 'compass']);
+gulp.task('prod', ['compileServices', 'uglifyVendors', 'compileFramework', 'html', 'compass']);
 
 
 /** TASK SERVE **/
