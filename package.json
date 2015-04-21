@@ -1,7 +1,7 @@
 {
-  "name": "LaoDuangDy",
+  "name": "BaseProject",
   "version": "1.0.0",
-  "description": "Restaurant laotien",
+  "description": "Base architecture for new projects",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
