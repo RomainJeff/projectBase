@@ -40,7 +40,7 @@ gulp prod
 ```
 gulp serve
 ```
-The project will be available at `http://localhost:3000
+The project will be available at `http://localhost:3000`
 
 
 #### 7. Run the tests
