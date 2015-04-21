@@ -11,39 +11,39 @@
 ### How to install
 Make sure you have both NodeJS (with NPM) and SASS (with COMPASS) installed on your machine.
 
-#### Install phantomjs
+#### 1. Install phantomjs
 ```
 npm install -g phantomjs
 ```
 
-#### Install gulp
+#### 2. Install gulp
 ```
 npm install -g gulp
 ```
 
-#### Pull the template
+#### 3. Pull the template
 ```
 git clone https://github.com/RomainJeff/projectBase.git
 ```
 
-#### Install dependencies
+#### 4. Install dependencies
 ```
 npm install
 ```
 
-#### Compile the projet
+#### 5. Compile the projet
 ```
 gulp prod
 ```
 
-#### Run the project
+#### 6. Run the project
 ```
 gulp serve
 ```
-The project will be available at `http://localhost:3000`
+The project will be available at `http://localhost:3000
 
 
-#### Run the tests
+#### 7. Run the tests
 ```
 gulp tests
 ```
