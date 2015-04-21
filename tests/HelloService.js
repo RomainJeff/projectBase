@@ -7,7 +7,7 @@ describe('[HelloService]', function () {
     });
 
     it('Test de Test.getUser()', function () {
-        expect(hello.getUser()).toBe(user);
+        expect(hello.getUser()).toEqual(jasmine.any(Person));
     });
 
     it('Test de Person.getName()', function () {
