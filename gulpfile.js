@@ -19,6 +19,8 @@ var serve       = require('gulp-serve');
 var useref      = require('gulp-useref');
 var compass     = require('gulp-for-compass');
 var uglify      = require('gulp-uglify');
+var clean       = require('gulp-clean');
+var rename      = require('gulp-rename');
 
  
 
@@ -85,6 +87,35 @@ gulp.task('compass', function () {
 });
 
 
+/** CLEAN RESOURCES **/
+gulp.task('cleanResources', function () {
+    return gulp.src(prodPath +'/resources')
+        .pipe(clean());
+});
+
+
+/** MOVE RESOURCES **/
+gulp.task('moveResources', ['cleanResources'], function () {
+    return gulp.src(devPath +'/resources/+(fonts|images)/**/*')
+        .pipe(gulp.dest(prodPath +'/resources'));
+});
+
+
+/** CLEAN VIEWS **/
+gulp.task('cleanViews', function () {
+    return gulp.src(prodPath +'/templates')
+        .pipe(clean());
+});
+
+
+/** MOVE VIEWS **/
+gulp.task('moveViews', ['cleanViews'], function () {
+    return gulp.src(devPath +'/services/**/Views/*.hbs')
+        .pipe(rename({dirname: ''}))
+        .pipe(gulp.dest(prodPath +'/templates'));
+});
+
+
 /** VERIFY JAVASCRIPT **/
 gulp.task('lintServices', function() {
     return gulp.src(devPath +'/services/**/+(Controllers|Models)/*.js')
@@ -102,7 +133,7 @@ gulp.task('tests', ['compileServices'], function () {
 
 
 /** TASK PROD **/
-gulp.task('prod', ['compileServices', 'uglifyVendors', 'compileFramework', 'html', 'compass']);
+gulp.task('prod', ['compileServices', 'uglifyVendors', 'compileFramework', 'html', 'compass', 'moveViews', 'moveResources']);
 
 
 /** TASK SERVE **/
